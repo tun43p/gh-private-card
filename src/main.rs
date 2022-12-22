@@ -24,6 +24,7 @@ async fn get_repository(Json(payload): Json<Repository>) -> impl IntoResponse {
         .url
         .replace("https://github.com/", "https://api.github.com/repos");
 
+    // TODO(tun43p): Use `headers` and not multiples `header`
     let res = reqwest::Client::new()
         .get(url)
         .header("Accept", "application/vnd.github+json")
