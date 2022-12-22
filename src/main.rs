@@ -36,6 +36,7 @@ async fn get_repository(Json(payload): Json<Repository>) -> impl IntoResponse {
         .send()
         .await;
 
+    // TODO(tun43p): Handle response and create GitHub card
     match res {
         Ok(response) => (StatusCode::OK, Json(payload)),
         Err(_) => (StatusCode::INTERNAL_SERVER_ERROR, Json(payload)),
