@@ -19,26 +19,21 @@ async fn main() {
 }
 
 async fn get_repository(Json(payload): Json<Repository>) -> impl IntoResponse {
-    // TODO(tun43p): Improve parsing
-    let url = payload
-        .url
-        .replace("https://github.com/", "https://api.github.com/repos");
+    let github_token = env::var("GITHUB_TOKEN").expect("missing github token");
+    let url = payload.url.replace("github.com/", "api.github.com/repos");
 
     // TODO(tun43p): Use `headers` and not multiples `header`
     let res = reqwest::Client::new()
         .get(url)
         .header("Accept", "application/vnd.github+json")
-        .header(
-            "Authorization",
-            format!("Bearer {}", env::var("GITHUB_TOKEN").unwrap()),
-        )
+        .header("Authorization", format!("Bearer {}", github_token))
         .header("X-GitHub-Api-Version", "2022-11-28")
         .send()
         .await;
 
     // TODO(tun43p): Handle response and create GitHub card
     match res {
-        Ok(response) => (StatusCode::OK, Json(payload)),
+        Ok(_response) => (StatusCode::OK, Json(payload)),
         Err(_) => (StatusCode::INTERNAL_SERVER_ERROR, Json(payload)),
     }
 }
