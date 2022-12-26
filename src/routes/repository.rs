@@ -1,14 +1,20 @@
-use crate::helpers::client;
+use crate::{helpers::client, models};
+use axum::{extract::Query, response::IntoResponse, Json};
+use reqwest::StatusCode;
+use serde::Deserialize;
 
-/// Get repository informations from GitHub API
-pub async fn get_repository() -> String {
+#[derive(Deserialize)]
+pub struct Params {
+    url: String,
+}
+
+/// **Get repository informations from GitHub API.**
+///
+/// Example: `curl -X GET http://localhost:3000/repository?url=https://github.com/user/repo`
+pub async fn get_repository(Query(params): Query<Params>) -> impl IntoResponse {
     let client = client::create_client();
 
-    // TODO(tun43p): Parse real url
-    let url = "https://github.com/tun43p/vera";
-    let url: String = url.replace("github.com/", "api.github.com/repos/");
-
-    println!("{}", url);
+    let url = params.url.replace("github.com/", "api.github.com/repos/");
 
     let result = client
         .get(url)
@@ -16,9 +22,8 @@ pub async fn get_repository() -> String {
         .await
         .expect("error getting response");
 
-    let data = result.text().await.expect("error getting data");
+    let repository: models::repository::Repository =
+        result.json().await.expect("error getting repository");
 
-    println!("{}", data);
-
-    "Get repository card".to_owned()
+    (StatusCode::OK, Json(repository))
 }

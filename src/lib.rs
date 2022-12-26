@@ -1,4 +1,5 @@
 mod helpers;
+mod models;
 mod routes;
 
 use dotenv::dotenv;

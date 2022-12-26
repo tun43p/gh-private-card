@@ -1,11 +1,11 @@
 use std;
 
-/// Get GitHub API token from your .env file
+/// **Get GitHub API token from your .env file.**
 pub fn get_github_token() -> String {
     std::env::var("GITHUB_TOKEN").expect("missing GITHUB_TOKEN in your .env file.")
 }
 
-/// Get the application server host from your .env file
+/// **Get the application server host from your .env file.**
 pub fn get_server_host() -> [u8; 4] {
     let server_host_vec = Vec::from_iter(
         std::env::var("SERVER_HOST")
@@ -23,7 +23,7 @@ pub fn get_server_host() -> [u8; 4] {
     server_host
 }
 
-/// Get the application server port from your .env file
+/// **Get the application server port from your .env file.**
 pub fn get_server_port() -> u16 {
     std::env::var("SERVER_PORT")
         .expect("missing SERVER_PORT in your .env file.")
