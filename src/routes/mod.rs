@@ -1,8 +1,11 @@
 mod healthcheck;
+mod repository;
 
-use self::healthcheck::healthcheck;
+use self::{healthcheck::get_healthcheck, repository::get_repository};
 use axum::{routing::get, Router};
 
 pub fn create_routes() -> Router {
-    Router::new().route("/", get(healthcheck))
+    Router::new()
+        .route("/", get(get_healthcheck))
+        .route("/repository", get(get_repository))
 }
