@@ -7,7 +7,7 @@ pub fn get_github_token() -> String {
 
 /// Get the application server host from your .env file
 pub fn get_server_host() -> [u8; 4] {
-    let server_host_vec: Vec<String> = Vec::from_iter(
+    let server_host_vec = Vec::from_iter(
         std::env::var("SERVER_HOST")
             .expect("missing SERVER_HOST in your .env file.")
             .split(".")
