@@ -2,7 +2,7 @@ use super::env;
 use reqwest::{header::HeaderMap, header::HeaderValue, Client};
 
 /// **Create a client for making requests on the GitHub API.**
-pub fn create_client() -> Client {
+pub fn create_github_client() -> Client {
     let mut headers = HeaderMap::new();
 
     headers.insert("User-Agent", header_value("*"));

@@ -1,0 +1,104 @@
+<html>
+  <head>
+    <title>{{ owner }}/{{ name }}</title>
+  </head>
+
+  <body>
+    <div class="card">
+      <header class="header">
+        <div class="informations">
+          <p class="owner">{{ owner }}/</p>
+          <p class="name">{{ name }}</p>
+          <p class="description">{{ description }}</p>
+        </div>
+        <div class="avatar">
+          <img src="{{ avatar }}" alt="{{ owner }}/{{ name }}" />
+        </div>
+      </header>
+      <footer class="footer">
+        <p class="issues">{{ issues }} open issues</p>
+        <a class="url" href="{{ url }}" target="_blank">{{ url }}</a>
+      </footer>
+    </div>
+  </body>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100vh;
+    }
+
+    body {
+      display: flex;
+      background: #202020;
+      font-size: 16px;
+      font-family: monospace;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      width: 24rem;
+      height: 14rem;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 1rem;
+    }
+
+    .header {
+      display: flex;
+      flex: 1;
+    }
+
+    .header > .informations {
+      width: 60%;
+    }
+
+    .header > .informations > .owner,
+    .header > .informations > .name {
+      font-size: 1.25rem;
+    }
+
+    .header > .informations > .owner {
+      font-weight: bold;
+    }
+
+    .header > .informations > .description {
+      font-size: 0.75rem;
+      margin-top: 0.75rem;
+      opacity: 0.75;
+    }
+
+    .avatar {
+      flex: 1;
+      text-align: right;
+    }
+
+    .avatar > img {
+      width: 6rem;
+      height: 6rem;
+      border-radius: 1rem;
+    }
+
+    .footer > .issues {
+      font-size: 0.75rem;
+      margin-bottom: 0.25rem;
+      opacity: 0.5;
+    }
+
+    .footer > .url {
+      font-size: 0.75rem;
+      color: #066cfa;
+      text-decoration: none;
+    }
+  </style>
+</html>

@@ -1,10 +1,10 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct License {
-    key: String,
-    name: String,
-    spdx_id: String,
-    url: String,
-    node_id: String,
+    pub key: String,
+    pub name: String,
+    pub spdx_id: String,
+    pub url: String,
+    pub node_id: String,
 }
