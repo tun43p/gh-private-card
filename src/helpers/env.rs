@@ -5,15 +5,22 @@ pub fn get_github_token() -> String {
     std::env::var("GITHUB_TOKEN").expect("missing GITHUB_TOKEN in your .env file.")
 }
 
-// TODO(tun43p): Parse server port
 /// Get the application server host from your .env file
 pub fn get_server_host() -> [u8; 4] {
-    let server_host = std::env::var("SERVER_HOST").expect("missing SERVER_HOST in your .env file.");
-    let server_host: Vec<String> = Vec::from_iter(server_host.split(".").map(String::from)); // [u8; 4] = [127, 0, 0, 1];
+    let server_host_vec: Vec<String> = Vec::from_iter(
+        std::env::var("SERVER_HOST")
+            .expect("missing SERVER_HOST in your .env file.")
+            .split(".")
+            .map(String::from),
+    );
 
-    println!("{}", server_host.first().unwrap());
+    // Convert our Vec<String> into an [u8;4] array
+    let mut server_host = [0; 4];
+    for (i, s) in server_host_vec.iter().enumerate() {
+        server_host[i] = s.parse::<u8>().unwrap();
+    }
 
-    [127, 0, 0, 1]
+    server_host
 }
 
 /// Get the application server port from your .env file
