@@ -1,6 +1,7 @@
 use super::env;
 use reqwest::{header::HeaderMap, header::HeaderValue, Client};
 
+/// Create a client for making requests on the GitHub API
 pub fn create_client() -> Client {
     let mut headers = HeaderMap::new();
 
@@ -18,6 +19,7 @@ pub fn create_client() -> Client {
         .expect("unable to create reqwest client")
 }
 
+/// Create an header value from a str
 fn header_value(src: &str) -> HeaderValue {
     HeaderValue::from_str(src).expect("unable to create header value")
 }
