@@ -1,5 +1,5 @@
 use crate::{
-    helpers::{client, html::create_github_repository_card},
+    features::github::create_github_repository_card, helpers::client,
     models::repository::Repository,
 };
 use axum::{extract::Query, response::Html};
@@ -13,7 +13,7 @@ pub struct Params {
 /// **Get repository informations from GitHub API.**
 ///
 /// Example: `curl -X GET http://localhost:3000/repository?url=https://github.com/user/repo`
-pub async fn get_repository_card(Query(params): Query<Params>) -> Html<String> {
+pub async fn get_github_card(Query(params): Query<Params>) -> Html<String> {
     let github_client = client::create_github_client();
 
     let url = params.url.replace("github.com/", "api.github.com/repos/");
@@ -27,6 +27,5 @@ pub async fn get_repository_card(Query(params): Query<Params>) -> Html<String> {
     let repository: Repository = result.json().await.expect("error getting repository");
 
     // TODO(tun43p): Return an image
-    let html_content = create_github_repository_card(&repository).0.content;
-    Html(html_content)
+    Html(create_github_repository_card(&repository))
 }
