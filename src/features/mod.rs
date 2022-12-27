@@ -1,4 +1,5 @@
 pub(crate) mod github;
+pub(crate) mod healthcheck;
 
 use lazy_static::lazy_static;
 use tera::Tera;

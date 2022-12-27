@@ -1,5 +1,5 @@
-use super::TEMPLATES;
-use crate::core::models::github::Repository;
+use super::models::Repository;
+use crate::features::TEMPLATES;
 use axum::http::{HeaderMap, HeaderValue};
 use headless_chrome::{protocol::cdp::Page, Browser};
 use reqwest::Client;

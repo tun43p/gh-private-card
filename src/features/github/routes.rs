@@ -1,6 +1,6 @@
-use crate::{
-    core::models::github::Repository,
-    features::github::{create_github_client, create_github_repository_card},
+use super::{
+    helpers::{create_github_client, create_github_repository_card},
+    models::Repository,
 };
 use axum::{extract::Query, response::Html};
 use serde::Deserialize;
@@ -12,7 +12,7 @@ pub struct Params {
 
 /// **Get repository infoqueryrmations from GitHub API.**
 ///
-/// Example: `curl -X GET http://localhost:3000/repository?url=https://github.com/user/repo`
+/// Example: `curl -X GET http://localhost:3000/github?url=https://github.com/user/repo`
 pub async fn get_github_card(Query(params): Query<Params>) -> Html<String> {
     let github_client = create_github_client();
 
