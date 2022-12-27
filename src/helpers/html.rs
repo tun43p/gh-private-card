@@ -30,6 +30,7 @@ pub fn create_github_repository_card(repository: &Repository) -> String {
     context.insert("issues", &repository.open_issues_count);
     context.insert("url", &repository.html_url);
 
+    // TODO(tun43p): Convert as image
     match TEMPLATES.render("github_repository.html", &context) {
         Ok(template) => template,
         Err(error) => {
