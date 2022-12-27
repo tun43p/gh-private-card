@@ -38,6 +38,8 @@ cargo watch -x run
 
 - [ ] Rename project in `social_cards`
 - [ ] Improve documentation
+- [ ] Update project architecture
+- [ ] Create actions
 
 ## Authors
 
