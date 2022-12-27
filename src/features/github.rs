@@ -1,5 +1,5 @@
 use super::TEMPLATES;
-use crate::{helpers::hash::create_hash, models::repository::Repository};
+use crate::{helpers::hash::create_hash, models::github::Repository};
 use headless_chrome::{protocol::cdp::Page, Browser};
 use std::{fs::File, io::Write};
 use tera::Context;
