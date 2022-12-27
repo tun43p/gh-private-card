@@ -1,7 +1,5 @@
 # GitHub Private Card
 
-> This is my first Rust project, it consists in retrieving information from a private GithHub directory and display it as a card.
-
 ## Table of contents
 
 - [GitHub Private Card](#github-private-card)
@@ -10,6 +8,7 @@
     - [Check project](#check-project)
     - [Run project](#run-project)
       - [Run and watch project](#run-and-watch-project)
+  - [Todos](#todos)
   - [Authors](#authors)
   - [License](#license)
 
@@ -34,6 +33,11 @@ _If you don't have `cargo-watch` installed: `cargo install cargo-watch`_
 ```sh
 cargo watch -x run 
 ```
+
+## Todos
+
+- [ ] Rename project in `social_cards`
+- [ ] Improve documentation
 
 ## Authors
 
