@@ -1,12 +1,10 @@
+mod core;
 mod features;
-mod helpers;
-mod models;
-mod routes;
 
 use dotenv::dotenv;
-use helpers::env;
-use routes::create_routes;
 use std::{fs::create_dir_all, net::SocketAddr, path::Path};
+
+use crate::core::routes::create_routes;
 
 pub async fn run() {
     dotenv().ok();
@@ -16,7 +14,13 @@ pub async fn run() {
     }
 
     let router = create_routes();
-    let socket_addr = SocketAddr::from((env::get_server_host(), env::get_server_port()));
+    let socket_addr = SocketAddr::from((
+        get_server_host(),
+        std::env::var("SERVER_PORT")
+            .expect("missing SERVER_PORT in your .env file.")
+            .parse()
+            .unwrap(),
+    ));
 
     println!("Listening on {}", socket_addr);
 
@@ -24,4 +28,22 @@ pub async fn run() {
         .serve(router.into_make_service())
         .await
         .unwrap();
+}
+
+/// **Get the application server host from your .env file.**
+fn get_server_host() -> [u8; 4] {
+    let server_host_vec = Vec::from_iter(
+        std::env::var("SERVER_HOST")
+            .expect("missing SERVER_HOST in your .env file.")
+            .split(".")
+            .map(String::from),
+    );
+
+    // Convert our Vec<String> into an [u8;4] array
+    let mut server_host = [0; 4];
+    for (i, s) in server_host_vec.iter().enumerate() {
+        server_host[i] = s.parse::<u8>().unwrap();
+    }
+
+    server_host
 }

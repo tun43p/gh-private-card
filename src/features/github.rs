@@ -1,8 +1,43 @@
 use super::TEMPLATES;
-use crate::{helpers::hash::create_hash, models::github::Repository};
+use crate::core::models::github::Repository;
+use axum::http::{HeaderMap, HeaderValue};
 use headless_chrome::{protocol::cdp::Page, Browser};
-use std::{fs::File, io::Write};
+use reqwest::Client;
+use std::{
+    collections::hash_map::DefaultHasher,
+    fs::File,
+    hash::{Hash, Hasher},
+    io::Write,
+};
 use tera::Context;
+
+/// **Create a client for making requests on the GitHub API.**
+pub fn create_github_client() -> Client {
+    let mut headers = HeaderMap::new();
+
+    fn header_value(src: &str) -> HeaderValue {
+        HeaderValue::from_str(src).expect("unable to create header value")
+    }
+
+    headers.insert("User-Agent", header_value("*"));
+    headers.insert("Accept", header_value("application/vnd.github+json"));
+    headers.insert(
+        "Authorization",
+        header_value(
+            format!(
+                "Bearer {}",
+                std::env::var("GITHUB_TOKEN").expect("missing GITHUB_TOKEN in your .env file.")
+            )
+            .as_str(),
+        ),
+    );
+    headers.insert("X-GitHub-Api-Version", header_value("2022-11-28"));
+
+    reqwest::Client::builder()
+        .default_headers(headers)
+        .build()
+        .expect("unable to create reqwest client")
+}
 
 /// **Create HTML card from GitHub repository**
 pub fn create_github_repository_card(repository: &Repository) -> String {
@@ -27,7 +62,9 @@ pub fn create_github_repository_card(repository: &Repository) -> String {
         .expect("error rendering html template");
 
     // Create hash based on the HTML code
-    let hash = create_hash(&html_content);
+    let mut hasher = DefaultHasher::new();
+    html_content.hash(&mut hasher);
+    let hash = hasher.finish();
 
     // Get HTML and PNG file paths
     let html_file_path = format!("build/{}.html", hash.to_string());
