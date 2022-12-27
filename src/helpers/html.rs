@@ -49,6 +49,7 @@ pub fn create_github_repository_card(repository: &Repository) -> String {
     }
 }
 
+/// **Render and create an HTML file builed on top of an HTML template**
 fn create_html_file(context: &Context, template: String) -> std::io::Result<()> {
     if Path::new("build/").exists() {
         remove_dir_all("build").expect("error deleting build directory");
