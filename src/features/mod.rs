@@ -6,7 +6,7 @@ use tera::Tera;
 
 lazy_static! {
     pub static ref TEMPLATES: Tera = {
-        match Tera::new("src/templates/**/*") {
+        match Tera::new("templates/**/*") {
             Ok(template) => template,
             Err(error) => {
                 eprintln!("{}", error.to_string());
