@@ -27,5 +27,6 @@ pub async fn get_repository_card(Query(params): Query<Params>) -> Html<String> {
     let repository: Repository = result.json().await.expect("error getting repository");
 
     // TODO(tun43p): Return an image
-    Html(create_github_repository_card(&repository))
+    let html_content = create_github_repository_card(&repository).0.content;
+    Html(html_content)
 }
