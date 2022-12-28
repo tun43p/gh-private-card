@@ -37,9 +37,8 @@ cargo watch -x run
 ## Todos
 
 - [ ] Rename project in `social_cards`
-- [ ] Improve documentation
-- [ ] Update project architecture
 - [ ] Create actions
+- [ ] Pass GitHub token as query
 
 ## Authors
 
