@@ -6,3 +6,6 @@
 
 # Backups
 *.bak.*
+
+# Static
+/static
