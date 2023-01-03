@@ -9,8 +9,8 @@ use crate::core::routes::create_routes;
 pub async fn run() {
     dotenv().ok();
 
-    if !Path::new("build/").exists() {
-        create_dir_all("build").expect("error creating directory");
+    if !Path::new("static/").exists() {
+        create_dir_all("static").expect("error creating directory");
     }
 
     let router = create_routes();

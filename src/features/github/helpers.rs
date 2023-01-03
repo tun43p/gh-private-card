@@ -67,8 +67,9 @@ pub fn create_github_repository_card(repository: &Repository) -> String {
     let hash = hasher.finish();
 
     // Get HTML and PNG file paths
-    let html_file_path = format!("build/{}.html", hash.to_string());
-    let png_file_path = format!("build/{}.png", hash.to_string());
+    // TODO(tun43p): Create a variable for the static dir
+    let html_file_path = format!("static/{}.html", hash.to_string());
+    let png_file_path = format!("static/{}.png", hash.to_string());
 
     // TODO(tun43p): if png file path exists, returns current image
 
@@ -104,5 +105,5 @@ pub fn create_github_repository_card(repository: &Repository) -> String {
         .expect("error creating png file");
 
     // TODO(tun43p): Returns new image
-    html_content
+    format!("{}.png", hash.to_string())
 }

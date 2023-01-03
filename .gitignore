@@ -7,5 +7,5 @@
 # Backups
 *.bak.*
 
-# Build
-/build
+# Static
+/static

@@ -2,7 +2,7 @@ use super::{
     helpers::{create_github_client, create_github_repository_card},
     models::Repository,
 };
-use axum::{extract::Query, response::Html};
+use axum::{extract::Query, response::Redirect};
 use serde::Deserialize;
 
 #[derive(Deserialize)]
@@ -13,7 +13,7 @@ pub struct Params {
 /// **Get GitHub repository or pull request card by requesting the GitHub API.**
 ///
 /// Example: `curl -X GET http://localhost:3000/github?url=https://github.com/user/repo`
-pub async fn get(Query(params): Query<Params>) -> Html<String> {
+pub async fn get(Query(params): Query<Params>) -> Redirect {
     let github_client = create_github_client();
 
     // TODO(tun43p): Check if is a repository or a pull request
@@ -31,6 +31,12 @@ pub async fn get(Query(params): Query<Params>) -> Html<String> {
         .await
         .expect("error getting repository");
 
-    // TODO(tun43p): Return an image
-    Html(create_github_repository_card(&repository))
+    // TODO(tun43p): Get addr and port from env
+    Redirect::permanent(
+        format!(
+            "http://localhost:3000/{}",
+            create_github_repository_card(&repository)
+        )
+        .as_str(),
+    )
 }
