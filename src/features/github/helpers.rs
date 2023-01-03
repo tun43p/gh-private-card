@@ -44,7 +44,7 @@ pub fn create_github_repository_card(repository: &Repository) -> String {
     let mut context = Context::new();
 
     // Parse full_name to get owner and name fields
-    let full_name = Vec::from_iter(repository.full_name.split("/").map(String::from));
+    let full_name = Vec::from_iter(repository.full_name.split('/').map(String::from));
     let owner = full_name.first().expect("error getting repository owner");
     let name = full_name.last().expect("error getting repository name");
 
@@ -68,8 +68,8 @@ pub fn create_github_repository_card(repository: &Repository) -> String {
 
     // Get HTML and PNG file paths
     // TODO(tun43p): Create a variable for the static dir
-    let html_file_path = format!("static/{}.html", hash.to_string());
-    let png_file_path = format!("static/{}.png", hash.to_string());
+    let html_file_path = format!("static/{}.html", hash);
+    let png_file_path = format!("static/{}.png", hash);
 
     // TODO(tun43p): if png file path exists, returns current image
 
@@ -100,10 +100,10 @@ pub fn create_github_repository_card(repository: &Repository) -> String {
         .expect("error capturing screenshot");
 
     // Save PNG file
-    let mut file = File::create(&png_file_path).expect("error creating png file");
+    let mut file = File::create(png_file_path).expect("error creating png file");
     file.write_all(&png_content)
         .expect("error creating png file");
 
-    // TODO(tun43p): Returns new image
-    format!("{}.png", hash.to_string())
+    // TODO(tun43p): Get file path from variable
+    format!("{}.png", hash)
 }

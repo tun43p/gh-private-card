@@ -9,7 +9,7 @@ lazy_static! {
         match Tera::new("templates/**/*") {
             Ok(template) => template,
             Err(error) => {
-                eprintln!("{}", error.to_string());
+                eprintln!("{}", error);
                 ::std::process::exit(1);
             }
         }

@@ -35,7 +35,7 @@ fn get_server_host() -> [u8; 4] {
     let server_host_vec = Vec::from_iter(
         std::env::var("SERVER_HOST")
             .expect("missing SERVER_HOST in your .env file.")
-            .split(".")
+            .split('.')
             .map(String::from),
     );
 
